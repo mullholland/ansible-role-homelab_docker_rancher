@@ -87,8 +87,6 @@ rancher_compose:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - "{{ rancher_network_name }}"
     volumes:
       - "{{ rancher_base_path }}/rancher/data:/var/lib/rancher"
       - "{{ rancher_base_path }}/rancher/auditlog:/var/log/auditlog"
