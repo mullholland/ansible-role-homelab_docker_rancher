@@ -31,7 +31,10 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
   become: true
   gather_facts: true
 
-  tasks:
+  roles:
+    - name: mullholland.docker
+
+  post_tasks:
     - name: check if connection still works
       ansible.builtin.ping:
 ```
