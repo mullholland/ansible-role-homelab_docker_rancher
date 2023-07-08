@@ -1,0 +1,54 @@
+---
+# --------------------------------------
+# General config
+# --------------------------------------
+rancher_base_path: "/opt/rancher"
+rancher_sub_path:
+  - "data"
+  - "auditlog"
+  - "certs"
+  - "backup"
+rancher_timezone: "Europe/Berlin"
+
+# --------------------------------------
+# User/Group
+# --------------------------------------
+# User/Group of the stack. Everything is mapped to this, instead of root.
+rancher_user: "rancher"
+rancher_group: "rancher"
+# this user/group be a system user
+rancher_user_system: true
+
+# --------------------------------------
+# rancher
+# --------------------------------------
+rancher_enable: true
+rancher_image: "rancher/rancher:latest"
+
+# Configure the container
+rancher_compose:
+  rancher:
+    container_name: "rancher"
+    image: "{{ rancher_image }}"
+    restart: always
+    user: "{{ rancher_uid }}"
+    privileged: true
+    environment:
+      PUID: "{{ rancher_uid }}"
+      PGID: "{{ rancher_gid }}"
+      TZ: "{{ rancher_timezone }}"
+      AUDIT_LEVEL: "1"
+      # SSL_CERT_DIR: "/container/certs"
+    command:
+      - '--config.file=/etc/rancher/rancher.yml'
+      - '--storage.path=/rancher'
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - "{{ rancher_network_name }}"
+    volumes:
+      - "{{ rancher_base_path }}/rancher/data:/var/lib/rancher"
+      - "{{ rancher_base_path }}/rancher/auditlog:/var/log/auditlog"
+      # - "{{ rancher_base_path }}/rancher/certs:/container/certs"
+      # - "{{ rancher_base_path }}/rancher/backup:/backup"

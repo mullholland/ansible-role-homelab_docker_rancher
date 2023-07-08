@@ -1,0 +1,6 @@
+---
+# {{ ansible_managed }}
+version: "3.3"
+
+services:
+  {{ rancher_compose | to_nice_yaml(indent=4) }}

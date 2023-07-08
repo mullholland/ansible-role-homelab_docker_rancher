@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Installs a docker-compose/systemd service for the [Rancher Server](https://ranchermanager.docs.rancher.com/pages-for-subheaders/deploy-rancher-manager) container.
+  homepage: https://mullholland.net
+  topics: cloud, packaging, system, web, ansible, molecule, tox, playbook

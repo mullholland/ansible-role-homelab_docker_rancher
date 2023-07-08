@@ -1,0 +1,11 @@
+---
+- name: "reload systemd"
+  ansible.builtin.systemd:
+    daemon_reload: yes
+  notify: restart rancher service
+
+- name: "restart rancher service"
+  ansible.builtin.service:
+    name: "{{ rancher_name }}"
+    state: restarted
+    enabled: "{{ rancher_enable }}"
