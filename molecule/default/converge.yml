@@ -6,4 +6,4 @@
   # vars:
   #   example_var: "value"
   roles:
-    - role: "ansible-role-homelab-docker-rancher-rke2"
+    - role: "ansible-role-homelab_docker_rancher"

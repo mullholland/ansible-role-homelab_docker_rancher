@@ -19,7 +19,7 @@ This example is taken from [`molecule/default/converge.yml`](https://github.com/
   # vars:
   #   example_var: "value"
   roles:
-    - role: "mullholland.homelab-docker-rancher-rke2"
+    - role: "mullholland.homelab_docker_rancher"
 ```
 
 The machine needs to be prepared. In CI this is done using [`molecule/default/prepare.yml`](https://github.com/mullholland/ansible-role-homelab_docker_rancher/blob/master/molecule/default/prepare.yml):
