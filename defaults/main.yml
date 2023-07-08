@@ -31,11 +31,9 @@ rancher_compose:
     container_name: "rancher"
     image: "{{ rancher_image }}"
     restart: always
-    user: "{{ rancher_uid }}"
+    user: "{{ rancher_user }}:{{ rancher_group }}"
     privileged: true
     environment:
-      PUID: "{{ rancher_uid }}"
-      PGID: "{{ rancher_gid }}"
       TZ: "{{ rancher_timezone }}"
       AUDIT_LEVEL: "1"
       # SSL_CERT_DIR: "/container/certs"
