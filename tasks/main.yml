@@ -1,16 +1,4 @@
 ---
-- name: Ensure group exists
-  ansible.builtin.group:
-    name: "{{ rancher_group }}"
-    system: "{{ rancher_user_system }}"
-    state: present
-
-- name: Ensure user exists
-  ansible.builtin.user:
-    name: "{{ rancher_user }}"
-    system: "{{ rancher_user_system }}"
-    state: "present"
-
 - name: set application facts
   ansible.builtin.set_fact:
     rancher_name: "rancher"

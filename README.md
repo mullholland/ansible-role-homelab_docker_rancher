@@ -4,7 +4,7 @@ Installs a docker-compose/systemd service for the [Rancher Server](https://ranch
 
 |GitHub|GitLab|Quality|Downloads|Version|
 |------|------|-------|---------|-------|
-|[![github](https://github.com/mullholland/ansible-role-homelab_docker_rancher/workflows/Ansible%20Molecule/badge.svg)](https://github.com/mullholland/ansible-role-homelab_docker_rancher/actions)|[![gitlab](https://gitlab.com/opensourceunicorn/ansible-role-homelab_docker_rancher/badges/master/pipeline.svg)](https://gitlab.com/opensourceunicorn/ansible-role-homelab_docker_rancher)|[![quality](https://img.shields.io/ansible/quality/)](https://galaxy.ansible.com/mullholland/homelab_docker_rancher)|[![downloads](https://img.shields.io/ansible/role/d/)](https://galaxy.ansible.com/mullholland/homelab_docker_rancher)|[![Version](https://img.shields.io/github/release/mullholland/ansible-role-homelab_docker_rancher.svg)](https://github.com/mullholland/ansible-role-homelab_docker_rancher/releases/)|
+|[![github](https://github.com/mullholland/ansible-role-homelab_docker_rancher/workflows/Ansible%20Molecule/badge.svg)](https://github.com/mullholland/ansible-role-homelab_docker_rancher/actions)|[![gitlab](https://gitlab.com/opensourceunicorn/ansible-role-homelab_docker_rancher/badges/master/pipeline.svg)](https://gitlab.com/opensourceunicorn/ansible-role-homelab_docker_rancher)|[![quality](https://img.shields.io/ansible/quality/62708)](https://galaxy.ansible.com/mullholland/homelab_docker_rancher)|[![downloads](https://img.shields.io/ansible/role/d/62708)](https://galaxy.ansible.com/mullholland/homelab_docker_rancher)|[![Version](https://img.shields.io/github/release/mullholland/ansible-role-homelab_docker_rancher.svg)](https://github.com/mullholland/ansible-role-homelab_docker_rancher/releases/)|
 
 ## [Example Playbook](#example-playbook)
 
@@ -49,22 +49,13 @@ The default values for the variables are set in [`defaults/main.yml`](https://gi
 # --------------------------------------
 # General config
 # --------------------------------------
-rancher_base_path: "/opt/rancher"
+rancher_base_path: "/opt"
 rancher_sub_path:
   - "data"
   - "auditlog"
   - "certs"
   - "backup"
 rancher_timezone: "Europe/Berlin"
-
-# --------------------------------------
-# User/Group
-# --------------------------------------
-# User/Group of the stack. Everything is mapped to this, instead of root.
-rancher_user: "rancher"
-rancher_group: "rancher"
-# this user/group be a system user
-rancher_user_system: true
 
 # --------------------------------------
 # rancher
@@ -78,15 +69,12 @@ rancher_compose:
     container_name: "rancher"
     image: "{{ rancher_image }}"
     restart: always
-    user: "{{ rancher_user }}:{{ rancher_group }}"
+    # https://ranchermanager.docs.rancher.com/v2.6/pages-for-subheaders/rancher-on-a-single-node-with-docker#privileged-access-for-rancher
     privileged: true
     environment:
       TZ: "{{ rancher_timezone }}"
       AUDIT_LEVEL: "1"
       # SSL_CERT_DIR: "/container/certs"
-    command:
-      - '--config.file=/etc/rancher/rancher.yml'
-      - '--storage.path=/rancher'
     ports:
       - 80:80
       - 443:443
