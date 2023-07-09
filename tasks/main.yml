@@ -7,8 +7,8 @@
 - name: "Ensure config folders exists"
   ansible.builtin.file:
     name: '{{ rancher_base_path }}/{{ rancher_name }}/{{ item }}'
-    owner: "{{ rancher_user }}"
-    group: "{{ rancher_group }}"
+    owner: "root"
+    group: "root"
     mode: "0770"
     state: directory
   with_items:
@@ -19,8 +19,8 @@
     src: "docker-compose.yml.j2"
     dest: "{{ rancher_base_path }}/{{ rancher_name }}/docker-compose.yml"
     mode: "0644"
-    owner: "{{ rancher_user }}"
-    group: "{{ rancher_group }}"
+    owner: "root"
+    group: "root"
   notify: restart rancher service
 
 - name: "Create systemd service"
