@@ -31,7 +31,10 @@ The machine needs to be prepared. In CI this is done using [`molecule/default/pr
   become: true
   gather_facts: true
 
-  tasks:
+  roles:
+    - name: mullholland.docker
+
+  post_tasks:
     - name: check if connection still works
       ansible.builtin.ping:
 ```
@@ -75,11 +78,9 @@ rancher_compose:
     container_name: "rancher"
     image: "{{ rancher_image }}"
     restart: always
-    user: "{{ rancher_uid }}"
+    user: "{{ rancher_user }}:{{ rancher_group }}"
     privileged: true
     environment:
-      PUID: "{{ rancher_uid }}"
-      PGID: "{{ rancher_gid }}"
       TZ: "{{ rancher_timezone }}"
       AUDIT_LEVEL: "1"
       # SSL_CERT_DIR: "/container/certs"
@@ -89,8 +90,6 @@ rancher_compose:
     ports:
       - 80:80
       - 443:443
-    networks:
-      - "{{ rancher_network_name }}"
     volumes:
       - "{{ rancher_base_path }}/rancher/data:/var/lib/rancher"
       - "{{ rancher_base_path }}/rancher/auditlog:/var/log/auditlog"
@@ -124,7 +123,6 @@ This role has been tested on these [container images](https://hub.docker.com/u/m
 |container|tags|
 |---------|----|
 |[EL](https://hub.docker.com/repository/docker/mullholland/docker-centos-systemd/general)|all|
-|[Amazon](https://hub.docker.com/repository/docker/mullholland/docker-amazonlinux-systemd/general)|Candidate|
 |[Fedora](https://hub.docker.com/repository/docker/mullholland/docker-fedora-systemd/general)|all|
 |[Ubuntu](https://hub.docker.com/repository/docker/mullholland/docker-ubuntu-systemd/general)|all|
 |[Debian](https://hub.docker.com/repository/docker/mullholland/docker-debian-systemd/general)|all|
