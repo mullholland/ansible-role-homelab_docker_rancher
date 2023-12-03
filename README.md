@@ -1,5 +1,9 @@
 # [homelab_docker_rancher](#homelab_docker_rancher)
 
+**IMPORTANT**
+This role will no longer be updated. I switched to a k3s cluster installed via ansible. I maintain main K3s cluster role [here](https://github.com/mullholland/ansible-role-k3s).
+
+---
 Installs a docker-compose/systemd service for the [Rancher Server](https://ranchermanager.docs.rancher.com/pages-for-subheaders/deploy-rancher-manager) container.
 
 |GitHub|GitLab|Quality|Downloads|Version|
